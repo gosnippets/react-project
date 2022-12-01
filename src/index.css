@@ -8,11 +8,40 @@
 .m-accordion .a-avatar,
 .m-accordion .a-typography {
   font-weight: bold;
-  color: rgb(127, 127, 127);
+  color: #00000082;
 }
 
 .m-accordion:hover .a-avatar,
 .m-accordion:hover .a-typography {
-  font-weight: bold;
   color: black;
+}
+
+label.c-label {
+  color: black;
+}
+
+label.radio-label {
+  color:#a2a2a2;
+}
+
+textarea.c-textarea {
+  width: 500px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  resize: none;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  color: rgba(0, 0, 0, 0.87);
+}
+textarea.c-textarea:hover {
+  border: 2px solid rgba(0, 0, 0, 0.87);
+}
+textarea.c-textarea:focus {
+  outline: 0;
+  border: 2px solid #1976d2;
 }
