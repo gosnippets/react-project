@@ -23,7 +23,14 @@ label.c-label {
 label.radio-label {
   color:#a2a2a2;
 }
-
+.menuitem-placeholder {
+  color:#a2a2a2;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+}
 textarea.c-textarea {
   width: 500px;
   padding: 10px;
@@ -44,4 +51,22 @@ textarea.c-textarea:hover {
 textarea.c-textarea:focus {
   outline: 0;
   border: 2px solid #1976d2;
+}
+.date-container {
+  margin-top: 20px;
+  display: flex;
+}
+.date-container .date {
+  width:150px;
+  margin-right: 70px;
+}
+.error-msg {
+  margin-bottom: 20px;
+  margin-left: 5%;
+}
+.message-container {
+  margin-top: 5px;
+}
+.message-container .alert {
+  color:red;
 }
