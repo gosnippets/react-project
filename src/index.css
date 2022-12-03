@@ -57,7 +57,7 @@ textarea.c-textarea:focus {
   display: flex;
 }
 .date-container .date {
-  width:150px;
+  width:250px;
   margin-right: 70px;
 }
 .error-msg {

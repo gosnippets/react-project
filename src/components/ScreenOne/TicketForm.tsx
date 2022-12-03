@@ -6,15 +6,9 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-
-function TicketForm({ formik }: any) {
-
-    const handleChange = (newValue: Date | null) => {
-        console.log('Date', newValue);
-    };
-
+function TicketForm({ formik }: any) { 
     return (<>
         <InputLabel sx={{ mb: '10px' }} className='c-label'>What is your Request?</InputLabel>
         <TextField required placeholder="Enter Title" variant="standard" {...formik.getFieldProps('title')} />
@@ -45,37 +39,53 @@ function TicketForm({ formik }: any) {
         )}
 
         <InputLabel sx={{ mt: '25px', mb: '10px' }} className='c-label'>What kind of Request you want to proceed with?</InputLabel>
-        <RadioGroup row name="row-radio-buttons-group">
+        <RadioGroup row name="row-radio-buttons-group" {...formik.getFieldProps('category')}>
             <FormControlLabel value="Hardware" control={<Radio />} label="Hardware" className='radio-label' />
             <FormControlLabel value="Software" control={<Radio />} label="Software" className='radio-label' />
             <FormControlLabel value="Network" control={<Radio />} label="Network" className='radio-label' />
             <FormControlLabel value="Access" control={<Radio />} label="Access" className='radio-label' />
         </RadioGroup>
+        {formik.touched.category && formik.errors.category && (
+            <div className='message-container'>
+                <span className='alert' role='alert'>{formik.errors.category}</span>
+            </div>
+        )}
 
         <InputLabel sx={{ mt: '25px', mb: '10px' }} className='c-label'>Let us know the Priority.</InputLabel>
-        <RadioGroup row name="row-radio-buttons-group">
+        <RadioGroup row name="row-radio-buttons-group" {...formik.getFieldProps('priority')}>
             <FormControlLabel value="Critical" control={<Radio />} label="Critical" className='radio-label' />
             <FormControlLabel value="High" control={<Radio />} label="High" className='radio-label' />
             <FormControlLabel value="Medium" control={<Radio />} label="Medium" className='radio-label' />
             <FormControlLabel value="Low" control={<Radio />} label="Low" className='radio-label' />
         </RadioGroup>
+        {formik.touched.priority && formik.errors.priority && (
+            <div className='message-container'>
+                <span className='alert' role='alert'>{formik.errors.priority}</span>
+            </div>
+        )}
 
         <InputLabel sx={{ mt: '25px', mb: '10px' }} className='c-label'>What is the Timeline of your Request?</InputLabel>
-        <RadioGroup row name="row-radio-buttons-group">
+        <RadioGroup row name="row-radio-buttons-group" {...formik.getFieldProps('timeline')}>
             <FormControlLabel value="Temporary" control={<Radio />} label="Temporary" className='radio-label' />
             <FormControlLabel value="Permanant" control={<Radio />} label="Permanant" className='radio-label' />
         </RadioGroup>
+        {formik.touched.timeline && formik.errors.timeline && (
+            <div className='message-container'>
+                <span className='alert' role='alert'>{formik.errors.timeline}</span>
+            </div>
+        )}
 
         <InputLabel sx={{ mt: '25px', mb: '10px' }} className='c-label'>What is the Duration of your Request?</InputLabel>
-
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <div className='date-container'>
                 <div className='date'>
-                    <DesktopDatePicker
+                    <DatePicker
                         label="From Date"
                         inputFormat="DD/MM/YYYY"
-                        onChange={handleChange}
                         {...formik.getFieldProps('fromDate')}
+                        onChange={(newValue) => {
+                            formik.setFieldValue("fromDate", newValue);
+                          }}
                         renderInput={(params) => <TextField {...params} variant="standard" />}
                     />
                     {formik.touched.fromDate && formik.errors.fromDate && (
@@ -85,12 +95,13 @@ function TicketForm({ formik }: any) {
                     )}
                 </div>
                 <div className='date'>
-                    <DesktopDatePicker
+                    <DatePicker
                         label="To Date"
                         inputFormat="DD/MM/YYYY"
-                        className='date'
-                        onChange={handleChange}
                         {...formik.getFieldProps('toDate')}
+                        onChange={(newValue) => {
+                            formik.setFieldValue("toDate", newValue);
+                          }}
                         renderInput={(params) => <TextField {...params} variant="standard" />}
                     />
                     {formik.touched.toDate && formik.errors.toDate && (

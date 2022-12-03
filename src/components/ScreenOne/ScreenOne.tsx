@@ -31,6 +31,9 @@ const ticketSchema = Yup.object().shape({
     title: Yup.string().min(10, 'Minimum 10 Symbols').max(200, 'Maximum 200 Symbols').required('Title is Required'),
     description: Yup.string().min(30, 'Minimum 30 Symbols').max(500, 'Maximum 500 Symbols').required('Description is Required'),
     ticketType: Yup.string().required('Type is Required'),
+    category: Yup.string().required('Category is Required'),
+    priority: Yup.string().required('Priority is Required'),
+    timeline: Yup.string().required('Timeline is Required'),
     approver: Yup.string().required('Approver is Required'),
     fromDate: Yup.date().required('From Date is Required'),
     toDate: Yup.date().required('To Date is Required'),
@@ -40,6 +43,9 @@ const initialValues = {
     title: '',
     description: '',
     ticketType: '',
+    category: '',
+    priority: '',
+    timeline : '',
     approver: '',
     fromDate: new Date(),
     toDate: new Date(),
@@ -74,8 +80,6 @@ function ScreenOne() {
     })
 
     const handleChange2 = (event: SelectChangeEvent) => {
-        // {...formik.getFieldProps('ticketType') }
-        console.log('event.target.value', event.target.value)
         setApprover(event.target.value);
         formik.setFieldValue("approver", event.target.value);
     };
