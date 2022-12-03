@@ -39,39 +39,39 @@ function TicketForm({ formik }: any) {
         )}
 
         <InputLabel sx={{ mt: '25px', mb: '10px' }} className='c-label'>What kind of Request you want to proceed with?</InputLabel>
-        <RadioGroup row name="row-radio-buttons-group" {...formik.getFieldProps('category')}>
+        <RadioGroup row name="row-radio-buttons-group" {...formik.getFieldProps('categoryType')}>
             <FormControlLabel value="Hardware" control={<Radio />} label="Hardware" className='radio-label' />
             <FormControlLabel value="Software" control={<Radio />} label="Software" className='radio-label' />
             <FormControlLabel value="Network" control={<Radio />} label="Network" className='radio-label' />
             <FormControlLabel value="Access" control={<Radio />} label="Access" className='radio-label' />
         </RadioGroup>
-        {formik.touched.category && formik.errors.category && (
+        {formik.touched.categoryType && formik.errors.categoryType && (
             <div className='message-container'>
-                <span className='alert' role='alert'>{formik.errors.category}</span>
+                <span className='alert' role='alert'>{formik.errors.categoryType}</span>
             </div>
         )}
 
         <InputLabel sx={{ mt: '25px', mb: '10px' }} className='c-label'>Let us know the Priority.</InputLabel>
-        <RadioGroup row name="row-radio-buttons-group" {...formik.getFieldProps('priority')}>
+        <RadioGroup row name="row-radio-buttons-group" {...formik.getFieldProps('priorityType')}>
             <FormControlLabel value="Critical" control={<Radio />} label="Critical" className='radio-label' />
             <FormControlLabel value="High" control={<Radio />} label="High" className='radio-label' />
             <FormControlLabel value="Medium" control={<Radio />} label="Medium" className='radio-label' />
             <FormControlLabel value="Low" control={<Radio />} label="Low" className='radio-label' />
         </RadioGroup>
-        {formik.touched.priority && formik.errors.priority && (
+        {formik.touched.priorityType && formik.errors.priorityType && (
             <div className='message-container'>
-                <span className='alert' role='alert'>{formik.errors.priority}</span>
+                <span className='alert' role='alert'>{formik.errors.priorityType}</span>
             </div>
         )}
 
         <InputLabel sx={{ mt: '25px', mb: '10px' }} className='c-label'>What is the Timeline of your Request?</InputLabel>
-        <RadioGroup row name="row-radio-buttons-group" {...formik.getFieldProps('timeline')}>
+        <RadioGroup row name="row-radio-buttons-group" {...formik.getFieldProps('timelineType')}>
             <FormControlLabel value="Temporary" control={<Radio />} label="Temporary" className='radio-label' />
             <FormControlLabel value="Permanant" control={<Radio />} label="Permanant" className='radio-label' />
         </RadioGroup>
-        {formik.touched.timeline && formik.errors.timeline && (
+        {formik.touched.timelineType && formik.errors.timelineType && (
             <div className='message-container'>
-                <span className='alert' role='alert'>{formik.errors.timeline}</span>
+                <span className='alert' role='alert'>{formik.errors.timelineType}</span>
             </div>
         )}
 
