@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
-import CustomAccordion from '../Common/CustomAccordion';
-import TicketForm from './TicketForm';
+import CustomAccordion from '../../components/Common/CustomAccordion';
+import TicketForm from '../../components/Common/TicketForm';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -12,6 +13,9 @@ import Button from '@mui/material/Button';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
+
+import { RootStore } from '../../state/store';
+import { createTicket } from '../../state/actions';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -45,7 +49,7 @@ const initialValues = {
     ticketType: '',
     categoryType: '',
     priorityType: '',
-    timelineType : '',
+    timelineType: '',
     approver: '',
     fromDate: new Date(),
     toDate: new Date(),
@@ -56,12 +60,16 @@ function ScreenOne() {
     const [approver, setApprover] = useState('');
     const [loading, setLoading] = useState(false)
 
-    // const dispatch = useDispatch()
+    const ticketState = useSelector((state: RootStore) => state.ticketReducer);
+    const dispatch = useDispatch();
+
     const formik = useFormik({
         initialValues,
         validationSchema: ticketSchema,
         onSubmit: (values, { setStatus, setSubmitting }) => {
             console.log('Values', values);
+            dispatch(createTicket(values));
+            console.log("ticketState", ticketState);
             setLoading(true)
             setTimeout(() => {
                 // login(values.email, values.password)
@@ -91,6 +99,14 @@ function ScreenOne() {
                 <Alert severity="error">{formik.status}</Alert>
             </div>
         )}
+
+        {ticketState.loading && (
+            <div className='error-msg'>
+                <Alert severity="error">Loading</Alert>
+            </div>
+        )}
+
+
 
         <form id='ticket_form' onSubmit={formik.handleSubmit} noValidate>
             <CustomAccordion index='1' title='Let us know about your ticket'>

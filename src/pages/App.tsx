@@ -1,5 +1,5 @@
 import Container from '@mui/material/Container';
-import ScreenOne from './components/ScreenOne/ScreenOne';
+import ScreenOne from './ScreenOne/ScreenOne';
 
 function App() {
   return (
