@@ -7,7 +7,7 @@ export const createTicket = (ticket: TicketType) => async (dispatch: Dispatch<Ti
   try {
     const res = await ticketService.createTicket(ticket);
     dispatch({ type: ticketConstants.TICKET_SUCCESS, payload: res.data })
-  } catch (err) {
-    dispatch({ type: ticketConstants.TICKET_FAIL })
+  } catch (err:any) {
+    dispatch({ type: ticketConstants.TICKET_FAIL, error: err.toString() })
   }
 };

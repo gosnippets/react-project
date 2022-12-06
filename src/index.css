@@ -16,15 +16,20 @@
   color: black;
 }
 
+.m-accordion:has(.Mui-expanded) .a-avatar,
+.m-accordion:has(.Mui-expanded) .a-typography {
+  color: black;
+}
+
 label.c-label {
   color: black;
 }
 
 label.radio-label {
-  color:#a2a2a2;
+  color: #a2a2a2;
 }
 .menuitem-placeholder {
-  color:#a2a2a2;
+  color: #a2a2a2;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 400;
   font-size: 1rem;
@@ -57,7 +62,7 @@ textarea.c-textarea:focus {
   display: flex;
 }
 .date-container .date {
-  width:250px;
+  width: 250px;
   margin-right: 70px;
 }
 .error-msg {
@@ -68,5 +73,5 @@ textarea.c-textarea:focus {
   margin-top: 5px;
 }
 .message-container .alert {
-  color:red;
+  color: red;
 }

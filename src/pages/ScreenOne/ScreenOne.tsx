@@ -71,20 +71,7 @@ function ScreenOne() {
             dispatch(createTicket(values));
             console.log("ticketState", ticketState);
             setLoading(true)
-            setTimeout(() => {
-                // login(values.email, values.password)
-                //     .then(({ data: { accessToken } }) => {
-                //         console.log("accessToken", accessToken);
-                //         setLoading(false)
-                //         dispatch(auth.actions.login(accessToken))
-                //     })
-                //     .catch(() => {
-                //         setLoading(false)
-                //         setSubmitting(false)
-                //         setStatus('The login detail is incorrect')
-                //     })
-            }, 1000)
-        },
+        }
     })
 
     const handleChange2 = (event: SelectChangeEvent) => {
@@ -100,9 +87,9 @@ function ScreenOne() {
             </div>
         )}
 
-        {ticketState.loading && (
+        {ticketState.isError && (
             <div className='error-msg'>
-                <Alert severity="error">Loading</Alert>
+                <Alert severity="error">{ticketState.error}</Alert>
             </div>
         )}
 
@@ -139,8 +126,8 @@ function ScreenOne() {
             </CustomAccordion>
 
             <Stack spacing={2} direction="row" sx={{ mt: '35px', justifyContent: 'end' }}>
-                <Button type='reset' variant="text" disabled={formik.isSubmitting}>Cancel</Button>
-                <Button type='submit' variant="contained" disabled={formik.isSubmitting || !formik.isValid}>
+                <Button type='reset' variant="text" disabled={formik.isSubmitting} onClick={ e => formik.resetForm}>Cancel</Button>
+                <Button type='submit' variant="contained" disabled={formik.isSubmitting || !(formik.isValid && formik.dirty)}>
                     {!loading && <span>Submit</span>}
                     {loading && (<span>Submitting... </span>)}
                 </Button>
