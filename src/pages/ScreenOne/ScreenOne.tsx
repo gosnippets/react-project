@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import InputLabel from '@mui/material/InputLabel';
@@ -15,7 +15,7 @@ import * as Yup from 'yup'
 import { useFormik } from 'formik'
 
 import { RootStore } from '../../state/store';
-import { createTicket } from '../../state/actions';
+import { createTicket, getApprovers } from '../../state/actions';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -57,11 +57,18 @@ const initialValues = {
 
 
 function ScreenOne() {
+    const dispatch = useDispatch();
     const [approver, setApprover] = useState('');
     const [loading, setLoading] = useState(false)
 
     const ticketState = useSelector((state: RootStore) => state.ticketReducer);
-    const dispatch = useDispatch();
+    const approverState = useSelector((state: RootStore) => state.approverReducer);
+
+    useEffect(() => {
+        dispatch(getApprovers());
+    }, []);// eslint-disable-line react-hooks/exhaustive-deps
+
+    console.log('approvers', approverState);
 
     const formik = useFormik({
         initialValues,
@@ -126,7 +133,7 @@ function ScreenOne() {
             </CustomAccordion>
 
             <Stack spacing={2} direction="row" sx={{ mt: '35px', justifyContent: 'end' }}>
-                <Button type='reset' variant="text" disabled={formik.isSubmitting} onClick={ e => formik.resetForm}>Cancel</Button>
+                <Button type='reset' variant="text" disabled={formik.isSubmitting} onClick={e => formik.resetForm}>Cancel</Button>
                 <Button type='submit' variant="contained" disabled={formik.isSubmitting || !(formik.isValid && formik.dirty)}>
                     {!loading && <span>Submit</span>}
                     {loading && (<span>Submitting... </span>)}
