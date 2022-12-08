@@ -1,14 +1,10 @@
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { FormControlLabel, InputLabel, Radio, RadioGroup, TextareaAutosize, TextField } from '@mui/material';
+
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-function TicketForm({ formik }: any) { 
+function TicketForm({ formik }: any) {
     return (<>
         <InputLabel sx={{ mb: '10px' }} className='c-label'>What is your Request?</InputLabel>
         <TextField required placeholder="Enter Title" variant="standard" {...formik.getFieldProps('title')} />
@@ -75,20 +71,21 @@ function TicketForm({ formik }: any) {
             </div>
         )}
 
-        <InputLabel sx={{ mt: '25px', mb: '10px' }} className='c-label'>What is the Duration of your Request?</InputLabel>
+        <InputLabel sx={{ mt: '25px', mb: '10px' }} className={`c-label ${formik.values?.timelineType === 'Permanant' ? 'disabled' : ''}`}>What is the Duration of your Request?</InputLabel>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <div className='date-container'>
                 <div className='date'>
                     <DatePicker
                         label="From Date"
+                        disabled={formik.values?.timelineType === 'Permanant' ? true : false}
                         inputFormat="DD/MM/YYYY"
                         {...formik.getFieldProps('fromDate')}
                         onChange={(newValue) => {
                             formik.setFieldValue("fromDate", newValue);
-                          }}
+                        }}
                         renderInput={(params) => <TextField {...params} variant="standard" />}
                     />
-                    {formik.touched.fromDate && formik.errors.fromDate && (
+                    {formik.touched.timelineType && formik.errors.fromDate && (
                         <div className='message-container'>
                             <span className='alert' role='alert'>{formik.errors.fromDate}</span>
                         </div>
@@ -97,14 +94,15 @@ function TicketForm({ formik }: any) {
                 <div className='date'>
                     <DatePicker
                         label="To Date"
+                        disabled={formik.values?.timelineType === 'Permanant' ? true : false}
                         inputFormat="DD/MM/YYYY"
                         {...formik.getFieldProps('toDate')}
                         onChange={(newValue) => {
                             formik.setFieldValue("toDate", newValue);
-                          }}
+                        }}
                         renderInput={(params) => <TextField {...params} variant="standard" />}
                     />
-                    {formik.touched.toDate && formik.errors.toDate && (
+                    {formik.touched.timelineType && formik.errors.toDate && (
                         <div className='message-container'>
                             <span className='alert' role='alert'>{formik.errors.toDate}</span>
                         </div>

@@ -12,26 +12,26 @@ export type TicketType = {
   priorityType: string,
   ticketType: string,
   timelineType: string,
-  fromDate: Date,
-  toDate: Date
+  fromDate?: Date | null,
+  toDate?: Date | null
 }
 
 export interface TicketLoading {
   type: typeof ticketConstants.TICKET_LOADING
   payload?: TicketType
-  error?:string
+  error?: string
 }
 
 export interface TicketSuccess {
   type: typeof ticketConstants.TICKET_SUCCESS,
   payload: TicketType
-  error?:string
+  error?: string
 }
 
 export interface TicketFail {
   type: typeof ticketConstants.TICKET_FAIL
   payload?: TicketType
-  error:string
+  error: string
 }
 
 export type TicketDispatchTypes = TicketLoading | TicketSuccess | TicketFail 

@@ -1,18 +1,12 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Typography from '@mui/material/Typography';
-import InputLabel from '@mui/material/InputLabel';
+import { Button, FormControl, InputLabel, MenuItem, Stack, Typography, Select, SelectChangeEvent } from '@mui/material';
 import CustomAccordion from '../../components/Common/CustomAccordion';
 import TicketForm from '../../components/Common/TicketForm';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import * as Yup from 'yup'
-import { useFormik } from 'formik'
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
 
 import { RootStore } from '../../state/store';
 import { createTicket, getApprovers } from '../../state/actions';
@@ -21,14 +15,56 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
+// const approvers = [
+//     'Zain Press',
+//     'Martin Septimus',
+//     'Lydia Rhiel Madsen',
+//     'Livia Culhane',
+//     'Angel Dorwart',
+//     'Livia Curtis',
+//     'Tatiana Kenter'
+// ];
+
 const approvers = [
-    'Zain Press',
-    'Martin Septimus',
-    'Lydia Rhiel Madsen',
-    'Livia Culhane',
-    'Angel Dorwart',
-    'Livia Curtis',
-    'Tatiana Kenter'
+    {
+        "id": 3,
+        "firstName": "approver",
+        "lastName": "lastname",
+        "email": "approver@afourtech.com",
+        "department": {},
+        "role": {
+            "role": "RTHREE",
+            "label": "role3",
+            "id": 3
+        },
+        "active": true
+    },
+    {
+        "id": 1,
+        "firstName": "super",
+        "lastName": "lastname",
+        "email": "superadmin@afourtech.com",
+        "department": {},
+        "role": {
+            "role": "RONE",
+            "label": "role1",
+            "id": 1
+        },
+        "active": true
+    },
+    {
+        "id": 2,
+        "firstName": "admin",
+        "lastName": "lastname",
+        "email": "admin1@afourtech.com",
+        "department": {},
+        "role": {
+            "role": "RTWO",
+            "label": "role2",
+            "id": 2
+        },
+        "active": true
+    }
 ];
 
 const ticketSchema = Yup.object().shape({
@@ -39,8 +75,16 @@ const ticketSchema = Yup.object().shape({
     priorityType: Yup.string().required('Priority is Required'),
     timelineType: Yup.string().required('Timeline is Required'),
     approver: Yup.string().required('Approver is Required'),
-    fromDate: Yup.date().required('From Date is Required'),
-    toDate: Yup.date().required('To Date is Required'),
+    fromDate: Yup.date().when("timelineType", {
+        is: (val: string) => val === "Permanant",
+        then: Yup.date().nullable(),
+        otherwise: Yup.date().required('From Date is Required').typeError("Please enter a valid date")
+    }),
+    toDate: Yup.date().when("timelineType", {
+        is: (val: string) => val === "Permanant",
+        then: Yup.date().nullable(),
+        otherwise: Yup.date().required('To Date is Required').typeError("Please enter a valid date")
+    }),
 })
 
 const initialValues = {
@@ -51,24 +95,23 @@ const initialValues = {
     priorityType: '',
     timelineType: '',
     approver: '',
-    fromDate: new Date(),
-    toDate: new Date(),
+    fromDate: null,
+    toDate: null,
 }
 
 
 function ScreenOne() {
     const dispatch = useDispatch();
     const [approver, setApprover] = useState('');
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     const ticketState = useSelector((state: RootStore) => state.ticketReducer);
     const approverState = useSelector((state: RootStore) => state.approverReducer);
 
     useEffect(() => {
         dispatch(getApprovers());
-    }, []);// eslint-disable-line react-hooks/exhaustive-deps
-
-    console.log('approvers', approverState);
+        // eslint-disable-next-line
+    }, []);
 
     const formik = useFormik({
         initialValues,
@@ -79,12 +122,25 @@ function ScreenOne() {
             console.log("ticketState", ticketState);
             setLoading(true)
         }
-    })
+    });
+
+    useEffect(() => {
+        if (formik.values.timelineType === 'Permanant') {
+            formik.setFieldValue("fromDate", null);
+            formik.setFieldValue("toDate", null);
+        }
+    }, [formik.values.timelineType]);
+
+    console.log('approvers', approverState, formik.values?.timelineType, formik.values);
 
     const handleChange2 = (event: SelectChangeEvent) => {
         setApprover(event.target.value);
         formik.setFieldValue("approver", event.target.value);
     };
+
+    const getApprover = (id: any) => {
+        return approvers.find(approver => approver.id === id);
+    }
 
     return (<>
         <Typography variant="h6" sx={{ mb: '15px', color: '#2196f3' }}>Create New Ticket</Typography>
@@ -115,13 +171,14 @@ function ScreenOne() {
                         value={approver}
                         onChange={handleChange2}
                         renderValue={(selected) => {
+                            var approver = getApprover(selected);
                             if (selected.length === 0) {
                                 return <span className='menuitem-placeholder'>Select Approver's Name</span>;
                             }
-                            return selected;
+                            return approver?.firstName + ' ' + approver?.lastName;
                         }}>
                         {approvers.map((approver) => (
-                            <MenuItem key={approver} value={approver}>{approver}</MenuItem>
+                            <MenuItem key={approver.id} value={approver.id}>{approver.firstName + ' ' + approver.lastName}</MenuItem>
                         ))}
                     </Select>
                 </FormControl>
