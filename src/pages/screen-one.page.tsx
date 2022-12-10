@@ -87,7 +87,7 @@ function ScreenOne() {
     const formik = useFormik({
         initialValues,
         validationSchema: ticketSchema,
-        onSubmit: (values, { setStatus, setSubmitting, resetForm }) => {
+        onSubmit: (values, { setStatus, setSubmitting }) => {
             const data = {
                 title: values.title,
                 description: values.description,
@@ -113,13 +113,13 @@ function ScreenOne() {
             dispatch(createTicket(data));
             console.log("ticketState", ticketState);
             setLoading(true);
-            resetForm({ values: initialValues });
-            setApprover('');
+            setSubmitting(true);
+            resetForm()
         },
     });
 
     const resetForm = () => {
-        formik.resetForm({ values: initialValues })
+        formik.resetForm();
         setApprover('');
     }
 
@@ -207,7 +207,7 @@ function ScreenOne() {
                         type="reset"
                         variant="text"
                         disabled={formik.isSubmitting}
-                        onClick={(e) => resetForm}
+                        onClick={ e => resetForm()}
                     >
                         Cancel
                     </Button>
