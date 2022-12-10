@@ -16,19 +16,19 @@ export type ApproverType = {
 
 export interface ApproverLoading {
   type: typeof approverConstants.APPROVER_LOADING
-  payload?: ApproverType
+  payload?: Array<ApproverType>
   error?:string
 }
 
 export interface ApproverSuccess {
   type: typeof approverConstants.APPROVER_SUCCESS,
-  payload: ApproverType
+  payload: Array<ApproverType>
   error?:string
 }
 
 export interface ApproverFail {
   type: typeof approverConstants.APPROVER_FAIL
-  payload?: ApproverType
+  payload?: Array<ApproverType>
   error:string
 }
 

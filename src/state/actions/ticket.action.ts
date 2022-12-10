@@ -9,7 +9,7 @@ export const createTicket = (ticket: TicketType) => async (dispatch: Dispatch<Ti
   dispatch({ type: ticketConstants.TICKET_LOADING });
   try {
     const res = await ticketService.createTicket(ticket);
-    dispatch({ type: ticketConstants.TICKET_SUCCESS, payload: res.data })
+    dispatch({ type: ticketConstants.TICKET_SUCCESS, payload: res.data.data })
   } catch (err: any) {
     dispatch({ type: ticketConstants.TICKET_FAIL, error: err.toString() })
   }
@@ -19,7 +19,7 @@ export const getApprovers = () => async (dispatch: Dispatch<ApproverDispatchType
   dispatch({ type: approverConstants.APPROVER_LOADING });
   try {
     const res = await ticketService.getApprovers();
-    dispatch({ type: approverConstants.APPROVER_SUCCESS, payload: res.data })
+    dispatch({ type: approverConstants.APPROVER_SUCCESS, payload: res.data.data })
   } catch (err: any) {
     dispatch({ type: approverConstants.APPROVER_FAIL, error: err.toString() })
   }

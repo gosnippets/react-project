@@ -5,6 +5,7 @@
   -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.46);
   -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.46);
 }
+
 .m-accordion .a-avatar,
 .m-accordion .a-typography {
   font-weight: bold;
@@ -23,6 +24,7 @@
 
 label.c-label {
   color: black;
+  margin-bottom: 10px;
 }
 
 label.c-label.disabled {
@@ -32,6 +34,7 @@ label.c-label.disabled {
 label.radio-label {
   color: #a2a2a2;
 }
+
 .menuitem-placeholder {
   color: #a2a2a2;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -40,6 +43,7 @@ label.radio-label {
   line-height: 1.4375em;
   letter-spacing: 0.00938em;
 }
+
 textarea.c-textarea {
   width: 500px;
   padding: 10px;
@@ -54,28 +58,57 @@ textarea.c-textarea {
   letter-spacing: 0.00938em;
   color: rgba(0, 0, 0, 0.87);
 }
+
 textarea.c-textarea:hover {
   border: 2px solid rgba(0, 0, 0, 0.87);
 }
+
 textarea.c-textarea:focus {
   outline: 0;
   border: 2px solid #1976d2;
 }
+
 .date-container {
   margin-top: 20px;
   display: flex;
 }
+
 .date-container .date {
   width: 250px;
   margin-right: 70px;
 }
+
 .error-msg {
   margin-bottom: 20px;
   margin-left: 5%;
 }
+
 .message-container {
   margin-top: 5px;
 }
+
 .message-container .alert {
   color: red;
+}
+
+.p-typography {
+  padding-bottom: 15px;
+  color: #2196f3;
+}
+
+.mt-25 {
+  margin-top: 25px;
+}
+
+.p-select-width {
+  min-width: 250px;
+}
+
+.p-btn {
+  justify-content: end;
+  margin-top: 35px;
+}
+
+.p-container {
+  margin: 2rem;
 }

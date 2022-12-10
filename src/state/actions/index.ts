@@ -1,1 +1,1 @@
-export * from './TicketAction';
+export * from './ticket.action';

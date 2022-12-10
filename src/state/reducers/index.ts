@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import ticketReducer from './TicketReducers';
-import approverReducer from './ApproverReducers';
+import ticketReducer from './ticket.reducers';
+import approverReducer from './approver.reducers';
 
 const rootReducer = combineReducers({
     ticketReducer,

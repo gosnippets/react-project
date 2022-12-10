@@ -2,7 +2,10 @@ import axios from "./axios-common";
 import { TicketType } from "../types";
 
 const createTicket = (data: TicketType) => {
-  return axios.post("/tms/tickets/addticket", data);
+  const ticket ={
+    tickets:data
+  }
+  return axios.post("/tms/tickets/addticket", ticket);
 };
 
 const getApprovers = () => {

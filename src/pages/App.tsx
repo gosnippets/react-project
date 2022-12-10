@@ -1,9 +1,9 @@
 import Container from '@mui/material/Container';
-import ScreenOne from './ScreenOne/ScreenOne';
+import ScreenOne from './screen-one.page';
 
 function App() {
   return (
-    <Container sx={{ m: '2rem' }}>
+    <Container className="p-container">
       <ScreenOne />
     </Container>
   );

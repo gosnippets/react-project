@@ -7,13 +7,13 @@ export const ticketConstants = {
 export type TicketType = {
   title: string,
   description: string,
-  approver: string,
-  categoryType: string,
-  priorityType: string,
-  ticketType: string,
-  timelineType: string,
-  fromDate?: Date | null,
-  toDate?: Date | null
+  approvedBy: {id:number},
+  category: {id:number},
+  priority: {id:number},
+  ticketType: {id:number},
+  duration: string,
+  startDate?: Date | null,
+  endDate?: Date | null
 }
 
 export interface TicketLoading {

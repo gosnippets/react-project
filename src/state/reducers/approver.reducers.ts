@@ -2,7 +2,7 @@ import { approverConstants, ApproverDispatchTypes, ApproverType } from '../types
 
 interface IApprover {
   loading: boolean,
-  approver?: ApproverType,
+  approver?: Array<ApproverType>,
   isError?: boolean,
   error?: string
 }

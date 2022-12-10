@@ -1,1 +1,1 @@
-export * from './TicketService';
+export * from './ticket.service';
