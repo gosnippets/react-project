@@ -52,7 +52,7 @@ const ticketSchema = Yup.object().shape({
     toDate: Yup.date().when("timelineType", {
         is: (val: string) => val === "Permanent",
         then: Yup.date().nullable(),
-        otherwise: Yup.date()
+        otherwise: Yup.date().min(Yup.ref('fromDate'), "To date can't be before from date")
             .required("To Date is Required")
             .typeError("Please enter a valid date"),
     }),

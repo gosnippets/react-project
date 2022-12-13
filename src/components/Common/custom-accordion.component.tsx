@@ -1,10 +1,5 @@
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
+import {Accordion, AccordionSummary, AccordionDetails,Avatar,Grid, Typography} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid';
 
 interface MyProps {
     index: string,
