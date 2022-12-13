@@ -77,6 +77,7 @@ function TicketForm({ formik }: any) {
                 <div className='date'>
                     <DatePicker
                         label="From Date"
+                        minDate = {new Date()}
                         disabled={formik.values?.timelineType === 'Permanent' ? true : false}
                         inputFormat="YYYY-MM-DD"
                         {...formik.getFieldProps('fromDate')}
@@ -94,6 +95,7 @@ function TicketForm({ formik }: any) {
                 <div className='date'>
                     <DatePicker
                         label="To Date"
+                        minDate = {formik.values?.fromDate ? formik.values.fromDate : new Date()}
                         disabled={formik.values?.timelineType === 'Permanent' ? true : false}
                         inputFormat="YYYY-MM-DD"
                         {...formik.getFieldProps('toDate')}
