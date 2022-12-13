@@ -3,6 +3,7 @@ import { ticketConstants, TicketDispatchTypes, TicketType } from '../types';
 interface ITicket {
   loading: boolean,
   ticket?: TicketType,
+  isSuccess?: boolean,
   isError?: boolean,
   error?: string
 }
@@ -20,6 +21,7 @@ const ticketReducer = (state: ITicket = defaultTicket, action: TicketDispatchTyp
     case ticketConstants.TICKET_SUCCESS:
       return {
         loading: false,
+        isSuccess:true,
         ticket: action.payload
       }
     case ticketConstants.TICKET_FAIL:

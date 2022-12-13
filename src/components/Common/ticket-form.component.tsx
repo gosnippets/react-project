@@ -9,7 +9,7 @@ function TicketForm({ formik }: any) {
         <InputLabel className='c-label'>What is your Request?</InputLabel>
         <TextField required placeholder="Enter Title" variant="standard" {...formik.getFieldProps('title')} />
         {formik.touched.title && formik.errors.title && (
-            <div className='message-container'>
+            <div className='error-msg-container'>
                 <span className='alert' role='alert'>{formik.errors.title}</span>
             </div>
         )}
@@ -17,7 +17,7 @@ function TicketForm({ formik }: any) {
         <InputLabel className='c-label mt-25'>Can you please write in brief about your Request?</InputLabel>
         <TextareaAutosize required minRows={4} placeholder="Enter Description" className='c-textarea' {...formik.getFieldProps('description')} />
         {formik.touched.description && formik.errors.description && (
-            <div className='message-container'>
+            <div className='error-msg-container'>
                 <span className='alert' role='alert'>{formik.errors.description}</span>
             </div>
         )}
@@ -29,7 +29,7 @@ function TicketForm({ formik }: any) {
             <FormControlLabel value="3" control={<Radio />} label="Security Incident" className='radio-label' />
         </RadioGroup>
         {formik.touched.ticketType && formik.errors.ticketType && (
-            <div className='message-container'>
+            <div className='error-msg-container'>
                 <span className='alert' role='alert'>{formik.errors.ticketType}</span>
             </div>
         )}
@@ -42,7 +42,7 @@ function TicketForm({ formik }: any) {
             <FormControlLabel value="4" control={<Radio />} label="Access" className='radio-label' />
         </RadioGroup>
         {formik.touched.categoryType && formik.errors.categoryType && (
-            <div className='message-container'>
+            <div className='error-msg-container'>
                 <span className='alert' role='alert'>{formik.errors.categoryType}</span>
             </div>
         )}
@@ -55,7 +55,7 @@ function TicketForm({ formik }: any) {
             <FormControlLabel value="4" control={<Radio />} label="Low" className='radio-label' />
         </RadioGroup>
         {formik.touched.priorityType && formik.errors.priorityType && (
-            <div className='message-container'>
+            <div className='error-msg-container'>
                 <span className='alert' role='alert'>{formik.errors.priorityType}</span>
             </div>
         )}
@@ -63,21 +63,21 @@ function TicketForm({ formik }: any) {
         <InputLabel className='c-label mt-25'>What is the Timeline of your Request?</InputLabel>
         <RadioGroup row name="row-radio-buttons-group" {...formik.getFieldProps('timelineType')}>
             <FormControlLabel value="Temporary" control={<Radio />} label="Temporary" className='radio-label' />
-            <FormControlLabel value="Permanant" control={<Radio />} label="Permanant" className='radio-label' />
+            <FormControlLabel value="Permanent" control={<Radio />} label="Permanent" className='radio-label' />
         </RadioGroup>
         {formik.touched.timelineType && formik.errors.timelineType && (
-            <div className='message-container'>
+            <div className='error-msg-container'>
                 <span className='alert' role='alert'>{formik.errors.timelineType}</span>
             </div>
         )}
 
-        <InputLabel className={`c-label mt-25 ${formik.values?.timelineType === 'Permanant' ? 'disabled' : ''}`}>What is the Duration of your Request?</InputLabel>
+        <InputLabel className={`c-label mt-25 ${formik.values?.timelineType === 'Permanent' ? 'disabled' : ''}`}>What is the Duration of your Request?</InputLabel>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <div className='date-container'>
                 <div className='date'>
                     <DatePicker
                         label="From Date"
-                        disabled={formik.values?.timelineType === 'Permanant' ? true : false}
+                        disabled={formik.values?.timelineType === 'Permanent' ? true : false}
                         inputFormat="YYYY-MM-DD"
                         {...formik.getFieldProps('fromDate')}
                         onChange={(newValue) => {
@@ -86,7 +86,7 @@ function TicketForm({ formik }: any) {
                         renderInput={(params) => <TextField {...params} variant="standard" />}
                     />
                     {formik.touched.timelineType && formik.errors.fromDate && (
-                        <div className='message-container'>
+                        <div className='error-msg-container'>
                             <span className='alert' role='alert'>{formik.errors.fromDate}</span>
                         </div>
                     )}
@@ -94,7 +94,7 @@ function TicketForm({ formik }: any) {
                 <div className='date'>
                     <DatePicker
                         label="To Date"
-                        disabled={formik.values?.timelineType === 'Permanant' ? true : false}
+                        disabled={formik.values?.timelineType === 'Permanent' ? true : false}
                         inputFormat="YYYY-MM-DD"
                         {...formik.getFieldProps('toDate')}
                         onChange={(newValue) => {
@@ -103,7 +103,7 @@ function TicketForm({ formik }: any) {
                         renderInput={(params) => <TextField {...params} variant="standard" />}
                     />
                     {formik.touched.timelineType && formik.errors.toDate && (
-                        <div className='message-container'>
+                        <div className='error-msg-container'>
                             <span className='alert' role='alert'>{formik.errors.toDate}</span>
                         </div>
                     )}

@@ -5,15 +5,21 @@ export const ticketConstants = {
 };
 
 export type TicketType = {
+  tickets: Ticket,
+  selectedSoftwares: { preApprovedSoftware: Array<string>},
+  images: Array<string>
+}
+
+export type Ticket = {
   title: string,
   description: string,
-  approvedBy: {id:number},
-  category: {id:number},
-  priority: {id:number},
-  ticketType: {id:number},
+  approvedBy: {id:string},
+  category: {id:string},
+  priority: {id:string},
+  ticketType: {id:string},
   duration: string,
-  startDate?: Date | null,
-  endDate?: Date | null
+  startDate?: string | null,
+  endDate?: string | null
 }
 
 export interface TicketLoading {

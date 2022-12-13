@@ -14,16 +14,16 @@ interface MyProps {
 
 function CustomAccordion({ index, title, children }: MyProps) {
     return (
-        <Grid container spacing={2} sx={{ mb: '15px' }} className='m-accordion'>
+        <Grid container spacing={2} className='p-accordion'>
             <Grid item xs={2} md={1} lg={0.6} >
-                <Avatar sx={{ mt: '5px' }} className='a-avatar'>{index}</Avatar>
+                <Avatar className='accordion-avatar'>{index}</Avatar>
             </Grid>
             <Grid item xs={10} md={11} lg={11.4}>
                 <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-                        <Typography className='a-typography'>{title}</Typography>
+                        <Typography className='accordion-typography'>{title}</Typography>
                     </AccordionSummary>
-                    <AccordionDetails sx={{ pb: '35px' }}>{children}</AccordionDetails>
+                    <AccordionDetails className='accordion-details'>{children}</AccordionDetails>
                 </Accordion>
             </Grid>
         </Grid>

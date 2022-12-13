@@ -1,4 +1,13 @@
-.m-accordion .a-avatar {
+.p-accordion {
+  margin-bottom: 15px;
+}
+
+.p-accordion .accordion-details {
+  padding-bottom: 35px;
+}
+
+.p-accordion .accordion-avatar {
+  margin-top: 5px;
   background: white;
   border: 1px;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.46);
@@ -6,19 +15,19 @@
   -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.46);
 }
 
-.m-accordion .a-avatar,
-.m-accordion .a-typography {
+.p-accordion .accordion-avatar,
+.p-accordion .accordion-typography {
   font-weight: bold;
   color: #00000082;
 }
 
-.m-accordion:hover .a-avatar,
-.m-accordion:hover .a-typography {
+.p-accordion:hover .accordion-avatar,
+.p-accordion:hover .accordion-typography {
   color: black;
 }
 
-.m-accordion:has(.Mui-expanded) .a-avatar,
-.m-accordion:has(.Mui-expanded) .a-typography {
+.p-accordion:has(.Mui-expanded) .accordion-avatar,
+.p-accordion:has(.Mui-expanded) .accordion-typography {
   color: black;
 }
 
@@ -78,16 +87,16 @@ textarea.c-textarea:focus {
   margin-right: 70px;
 }
 
-.error-msg {
+.msg-container {
   margin-bottom: 20px;
   margin-left: 5%;
 }
 
-.message-container {
+.error-msg-container {
   margin-top: 5px;
 }
 
-.message-container .alert {
+.error-msg-container .alert {
   color: red;
 }
 

@@ -19,6 +19,7 @@ import { useFormik } from "formik";
 
 import { RootStore } from "../state/store";
 import { createTicket, getApprovers } from "../state/actions";
+import { dateFormat } from "../utils/dateFormat";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -36,20 +37,20 @@ const ticketSchema = Yup.object().shape({
         .min(10, "Minimum 10 Symbols")
         .max(500, "Maximum 500 Symbols")
         .required("Description is Required"),
-    ticketType: Yup.number().required("Type is Required"),
-    categoryType: Yup.number().required("Category is Required"),
-    priorityType: Yup.number().required("Priority is Required"),
+    ticketType: Yup.string().required("Type is Required"),
+    categoryType: Yup.string().required("Category is Required"),
+    priorityType: Yup.string().required("Priority is Required"),
     timelineType: Yup.string().required("Timeline is Required"),
-    approver: Yup.number().required("Approver is Required"),
+    approver: Yup.string().required("Approver is Required"),
     fromDate: Yup.date().when("timelineType", {
-        is: (val: string) => val === "Permanant",
+        is: (val: string) => val === "Permanent",
         then: Yup.date().nullable(),
         otherwise: Yup.date()
             .required("From Date is Required")
             .typeError("Please enter a valid date"),
     }),
     toDate: Yup.date().when("timelineType", {
-        is: (val: string) => val === "Permanant",
+        is: (val: string) => val === "Permanent",
         then: Yup.date().nullable(),
         otherwise: Yup.date()
             .required("To Date is Required")
@@ -87,44 +88,54 @@ function ScreenOne() {
     const formik = useFormik({
         initialValues,
         validationSchema: ticketSchema,
-        onSubmit: (values, { setStatus, setSubmitting }) => {
-            const data = {
-                title: values.title,
-                description: values.description,
-                ticketType: {
-                    id: 1,
-                },
-                category: {
-                    id: 1,
-                },
-                priority: {
-                    id: 1,
-                },
-                duration: values.timelineType,
-                approvedBy: {
-                    id: 1,
-                },
-                startDate: values.fromDate,
-                endDate: values.toDate,
-            };
-
-            console.log("data", data);
-            console.log("Values", values);
-            dispatch(createTicket(data));
-            console.log("ticketState", ticketState);
+        onSubmit: (values, { setSubmitting }) => {
             setLoading(true);
             setSubmitting(true);
-            resetForm()
+
+            const data = {
+                tickets: {
+                    title: values.title,
+                    description: values.description,
+                    ticketType: { id: values.ticketType },
+                    category: { id: values.categoryType },
+                    priority: { id: values.priorityType },
+                    duration: values.timelineType,
+                    approvedBy: { id: values.approver },
+                    accessType: "",
+                    startDate: dateFormat(values.fromDate),
+                    endDate: dateFormat(values.toDate)
+                },
+                selectedSoftwares: {
+                    preApprovedSoftware: []
+                },
+                images: []
+            }
+
+            console.log("data", data);
+            dispatch(createTicket(data));
         },
     });
 
     const resetForm = () => {
+        setLoading(false);
+        formik.setSubmitting(false);
         formik.resetForm();
         setApprover('');
     }
 
     useEffect(() => {
-        if (formik.values.timelineType === "Permanant") {
+        if (ticketState.isSuccess) {
+            resetForm();
+        }
+        if (ticketState.isError) {
+            setLoading(false);
+            formik.setSubmitting(false);
+        }
+        // eslint-disable-next-line
+    }, [ticketState.isSuccess, ticketState.isError]);
+
+    useEffect(() => {
+        if (formik.values.timelineType === "Permanent") {
             formik.setFieldValue("fromDate", null);
             formik.setFieldValue("toDate", null);
         }
@@ -132,7 +143,7 @@ function ScreenOne() {
     }, [formik.values.timelineType]);
 
 
-    const handleChange2 = (event: SelectChangeEvent) => {
+    const handleChange = (event: SelectChangeEvent) => {
         setApprover(event.target.value);
         formik.setFieldValue("approver", event.target.value);
     };
@@ -146,14 +157,15 @@ function ScreenOne() {
             <Typography variant="h6" className="p-typography">
                 Create New Ticket
             </Typography>
-            {formik.status && (
-                <div className="error-msg">
-                    <Alert severity="error">{formik.status}</Alert>
+
+            {ticketState.isSuccess && (
+                <div className="msg-container">
+                    <Alert severity="success">Ticket added successfully!</Alert>
                 </div>
             )}
 
             {ticketState.isError && (
-                <div className="error-msg">
+                <div className="msg-container">
                     <Alert severity="error">{ticketState.error}</Alert>
                 </div>
             )}
@@ -169,7 +181,7 @@ function ScreenOne() {
                         <Select
                             displayEmpty
                             value={approver}
-                            onChange={handleChange2}
+                            onChange={handleChange}
                             renderValue={(selected) => {
                                 var approver = getApprover(selected);
                                 if (selected.length === 0) {
@@ -190,7 +202,7 @@ function ScreenOne() {
                         </Select>
                     </FormControl>
                     {formik.touched.approver && formik.errors.approver && (
-                        <div className="message-container">
+                        <div className="error-msg-container">
                             <span className="alert" role="alert">
                                 {formik.errors.approver}
                             </span>
@@ -207,7 +219,7 @@ function ScreenOne() {
                         type="reset"
                         variant="text"
                         disabled={formik.isSubmitting}
-                        onClick={ e => resetForm()}
+                        onClick={e => resetForm()}
                     >
                         Cancel
                     </Button>

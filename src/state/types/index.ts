@@ -1,2 +1,2 @@
-export * from './ticket';
-export * from './approver';
+export * from './Ticket';
+export * from './Approver';
