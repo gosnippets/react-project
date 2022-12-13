@@ -181,6 +181,7 @@ function ScreenOne() {
                         <Select
                             displayEmpty
                             value={approver}
+                            className='p-select'
                             onChange={handleChange}
                             renderValue={(selected) => {
                                 var approver = getApprover(selected);

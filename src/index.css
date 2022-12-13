@@ -105,6 +105,10 @@ textarea.c-textarea:focus {
   color: #2196f3;
 }
 
+.p-select {
+  width: 300px;
+}
+
 .mt-25 {
   margin-top: 25px;
 }
